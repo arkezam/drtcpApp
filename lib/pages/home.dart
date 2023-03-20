@@ -3,6 +3,7 @@ import 'package:drtcp/widgets/boton_azul.dart';
 import 'package:drtcp/widgets/logo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
@@ -24,7 +25,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    String? char1 = '';
+
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Menu Principal"),
       ),
@@ -124,21 +129,100 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
 
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 30),
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: Image( image: AssetImage('assets/logo1.png') ),
-            ),
-            SizedBox(height: 50),
-            Expanded(child: IngresoPlaca())
-          ],
-        ),
-      ),
-    );
+              Form(
+                key: _formKey,
+                child: Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20,),
+                      Text("VERIFICACION DE VEHICULO", style: TextStyle(
+                          fontSize: 23, color: Colors.indigo, fontWeight: FontWeight.bold
+                      )),
+                      SizedBox(height: 20),
+                      Image(image: AssetImage('assets/placa.png'), width: 230),
+                      SizedBox(height: 20),
+                      Text("Ingresa la Placa Vehicular", style: TextStyle(
+                          fontSize: 20, color: Colors.indigo, fontWeight: FontWeight.w400
+                      )),
+                      SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.indigo, width: 3),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  offset: Offset(5, 5),
+                                  blurRadius: 10
+                              )
+                            ]
+                        ),
+                        child: SizedBox(
+                          height: 65,
+                          width: 250,
+                          child: TextField(
+
+                            onChanged: (value) {
+                              char1 = value;
+
+                            },
+                            decoration: InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              border: InputBorder.none,
+                            ),
+                            textCapitalization: TextCapitalization.characters,
+                            cursorColor: Colors.indigo,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.text,
+                            inputFormatters: [LengthLimitingTextInputFormatter(6)],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            minimumSize: MaterialStateProperty.all<Size>(Size(180, 60)),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              print("${char1}  ");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Buscando en BD ... ${char1} ")),
+                              );
+                            }
+                            if(char1==""){
+                              Navigator.pushNamed(context, 'actaControl');
+                            }
+                            else
+                            Navigator.pushNamed(context, 'datosPlaca');
+                          },
+                          child: const Text("Buscar Placa", style: TextStyle(
+                              fontSize: 18,  fontWeight: FontWeight.w500
+                          )),
+                        ),
+                      ),
+                      Image( image: AssetImage('assets/logo1.png') ),
+                      SizedBox(height: 200)
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      );
+
   }
 }

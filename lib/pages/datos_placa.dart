@@ -15,13 +15,16 @@ class _DatosPlacaState extends State<DatosPlaca> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Datos de Placa"),
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              Logo( titulo: 'Datos del Vehículo' ),
+              Image( image: AssetImage('assets/logo1.png') ),
               SizedBox(height: 20,),
               Text("Numero De Placa"),
               Text("Datos de Vehiculo"),
@@ -81,11 +84,28 @@ class __FormState extends State<_Form> {
                   decoration: InputDecoration(
                     hintText: 'DNI',
                   ),
+                  keyboardType: TextInputType.number,
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Acción que se realiza cuando se presiona el botón
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Datos de Persona"),
+                        content: Text("Contenido"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("Cerrar"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: Text('Verificar'),
               ),

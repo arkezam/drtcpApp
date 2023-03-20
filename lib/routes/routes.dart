@@ -1,3 +1,4 @@
+import 'package:drtcp/pages/acta_control.dart';
 import 'package:drtcp/pages/home.dart';
 import 'package:drtcp/pages/ingreso_placa.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'home'        : ( _ ) => Home(),
   'ingresoPlaca'    : ( _ ) => IngresoPlaca(),
   'datosPlaca'   : ( _ ) => DatosPlaca(),
+  'actaControl'   : ( _ ) => ActaControlForm(),
 };
 
 

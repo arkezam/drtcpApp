@@ -15,36 +15,35 @@ class _IngresoPlacaState extends State<IngresoPlaca> {
 
     final _formKey = GlobalKey<FormState>();
 
-    return Scaffold(
-      body: SafeArea(
-        child:  Column(
+    return  SingleChildScrollView(
+      child: Column(
 
-          children: [
-            Text("VERIFICACION DE VEHICULO", style: TextStyle(
-                fontSize: 23, color: Colors.indigo, fontWeight: FontWeight.bold
-            ),),
+        children: [
+          Text("VERIFICACION DE VEHICULO", style: TextStyle(
+              fontSize: 23, color: Colors.indigo, fontWeight: FontWeight.bold
+          ),),
 
-            SizedBox(
-              height: 20,
-            ),
-            Image(
-                image: AssetImage('assets/placa.png'),
-                width: 230,
+          SizedBox(
+            height: 20,
+          ),
+          Image(
+            image: AssetImage('assets/placa.png'),
+            width: 230,
 
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text("Ingresa la Placa Vehicular", style: TextStyle(
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text("Ingresa la Placa Vehicular", style: TextStyle(
               fontSize: 20, color: Colors.indigo, fontWeight: FontWeight.w400
-            ),),
-            SizedBox(
-              height: 20,
-            ),
-            Form(
-                key: _formKey,
-                child:
-              Row(
+          ),),
+          SizedBox(
+            height: 20,
+          ),
+          Form(
+            key: _formKey,
+            child:
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
@@ -73,8 +72,8 @@ class _IngresoPlacaState extends State<IngresoPlaca> {
                         }
                       },
                       decoration: InputDecoration(
-                          focusedBorder: InputBorder.none,
-                          border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        border: InputBorder.none,
                       ),
                       textCapitalization: TextCapitalization.characters,
                       cursorColor: Colors.indigo,
@@ -91,43 +90,40 @@ class _IngresoPlacaState extends State<IngresoPlaca> {
 
                   ),
                 ),
-
-
               ],
             ),
 
-
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 25),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  minimumSize: MaterialStateProperty.all<Size>(Size(180, 60)),
                 ),
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
-                    print("${char1}  ");
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Buscando en BD ... ${char1} ")),
-                    );
-                  }
-                  Navigator.pushReplacementNamed( context , 'datosPlaca' );
-                },
-                child: const Text("Buscar Placa", style: TextStyle(
-                    fontSize: 18,  fontWeight: FontWeight.w500
-                ),),
+                minimumSize: MaterialStateProperty.all<Size>(Size(180, 60)),
               ),
+              onPressed: () {
+                // Validate returns true if the form is valid, or false otherwise.
+                if (_formKey.currentState!.validate()) {
+                  print("${char1}  ");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Buscando en BD ... ${char1} ")),
+                  );
+                }
+                Navigator.pushReplacementNamed( context , 'datosPlaca' );
+              },
+              child: const Text("Buscar Placa", style: TextStyle(
+                  fontSize: 18,  fontWeight: FontWeight.w500
+              ),),
             ),
-          ],
-        ),
-      )
+          ),
+        ],
+      ),
     );
+
   }
 }
 
